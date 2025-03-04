@@ -1,0 +1,541 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>[MIT The Missing Semester] Lec01: The Shell | yl's blog</title><meta name="author" content="yl"><meta name="copyright" content="yl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Introduction to Unix&#x2F;Linux Shell.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[MIT The Missing Semester] Lec01: The Shell">
+<meta property="og:url" content="https://futureyl3.github.io/2025/03/02/MIT-The-Missing-Semester-Lec01-The-Shell/">
+<meta property="og:site_name" content="yl&#39;s blog">
+<meta property="og:description" content="Introduction to Unix&#x2F;Linux Shell.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://futureyl3.github.io/img/kano.JPG">
+<meta property="article:published_time" content="2025-03-02T09:40:40.000Z">
+<meta property="article:modified_time" content="2025-03-02T09:40:40.000Z">
+<meta property="article:author" content="yl">
+<meta property="article:tag" content="Shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://futureyl3.github.io/img/kano.JPG"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "[MIT The Missing Semester] Lec01: The Shell",
+  "url": "https://futureyl3.github.io/2025/03/02/MIT-The-Missing-Semester-Lec01-The-Shell/",
+  "image": "https://futureyl3.github.io/img/kano.JPG",
+  "datePublished": "2025-03-02T09:40:40.000Z",
+  "dateModified": "2025-03-02T09:40:40.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "yl",
+      "url": "https://futureyl3.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://futureyl3.github.io/2025/03/02/MIT-The-Missing-Semester-Lec01-The-Shell/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '[MIT The Missing Semester] Lec01: The Shell',
+  isHighlightShrink: undefined,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/kano.JPG" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(to right, rgb(198, 255, 221), rgb(251, 215, 134), rgb(247, 121, 125));"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">yl's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">[MIT The Missing Semester] Lec01: The Shell</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">[MIT The Missing Semester] Lec01: The Shell</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-03-02T09:40:40.000Z" title="Created 2025-03-02 17:40:40">2025-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-03-02T09:40:40.000Z" title="Updated 2025-03-02 17:40:40">2025-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/The-Missing-Semester/">The Missing Semester</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>8mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>Lec01：The Shell</h1>
+<p>本 Lec 主要内容：</p>
+<ul>
+<li>了解什么是 shell</li>
+<li>shell 的 prompt 各部分的含义</li>
+<li>shell 环境</li>
+<li>在 shell 中导航</li>
+<li>shell 的权限系统</li>
+<li>管道符的使用</li>
+<li>root 用户</li>
+</ul>
+<h2 id="为什么需要-shell">为什么需要 shell</h2>
+<p>如今有很多交互接口可以让我们进行指令的输入，比如 GUI、语音输入甚至 AR/VR。这些交互接口可以覆盖 80% 的使用场景。但是，如果你想要完成一个操作，而这个操作恰好没有对应的按钮或语言输入，这些交互接口就捉襟见肘了。为此，使用文字接口 shell 成为了最终的选择 —— 它是全能的，任何你能在图形化接口做的事，它都能做，而且可以做的事更多。</p>
+<h2 id="使用-shell">使用 shell</h2>
+<h3 id="初见-shell">初见 shell</h3>
+<p>当打开终端时，一般会看到如下内容：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">missing:~$</span><br></pre></td></tr></table></figure>
+<p>这是 shell 最重要的文本接口。这一行内容的含义是：你的==主机名==是 <code>missing</code> 并且==当前的工作目录==（”current working directory”）或者说当前所在的位置是 <code>~</code> (表示 ==“home”==)。 <code>$</code> 符号表示现在的身份==不是 root 用户==（稍后会介绍）。</p>
+<h3 id="在-shell-中执行命令">在 shell 中执行命令</h3>
+<p>在 shell 中，最简单的命令是执行一个<em>程序</em>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">missing:~$ date</span><br><span class="line">Fri 10 Jan 2020 11:49:31 AM EST</span><br><span class="line">missing:~$ </span><br></pre></td></tr></table></figure>
+<p>我们可以在执行命令的同时向程序传递<em>参数</em>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">missing:~$ echo hello</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<p>这里，我们执行了一个程序 <code>echo</code>，并传递了一个参数 <code>hello</code>。</p>
+<blockquote>
+<p>shell 基于空格分割命令并进行解析，然后执行第一个单词代表的程序，并将后续的单词作为程序可以访问的参数。如果希望传递的参数中包含空格（例如一个名为 My Photos 的文件夹），则要么用使用单引号，双引号将其包裹起来，要么使用转义符号 <code>\</code> 进行处理（<code>My\ Photos</code>）。</p>
+</blockquote>
+<h3 id="shell-如何知道要执行的程序在哪？">shell 如何知道要执行的程序在哪？</h3>
+<p>其实，类似于 Python 或 Ruby，shell 是一个==编程环境==，所以它具备变量、条件、循环和函数（下一课进行讲解）。当你在 shell 中执行命令时，你实际上是在执行一段 shell 可以==解释执行==的==简短代码==。</p>
+<p>如果你要求 shell 执行某个指令，但是该指令并不是 shell 所了解的编程关键字，那么它会去咨询 <em>环境变量</em> <code>$PATH</code>，它会列出当 shell 接到某条指令时，进行程序搜索的路径：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">missing:~$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br><span class="line">missing:~$ which echo</span><br><span class="line">/bin/echo</span><br><span class="line">missing:~$ /bin/echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
+<p>当我们执行 <code>echo</code> 命令时，shell 了解到需要执行 <code>echo</code> 这个程序，随后它便会在 <code>$PATH</code> 中搜索由 <code>:</code> 所分割的一系列目录，基于名字搜索该程序。当找到该程序时便执行（假定该文件是 <em>可执行程序</em>，后续课程将详细讲解）。</p>
+<p>确定某个程序名代表的是哪个具体的程序，可以使用 <code>which</code> 程序。</p>
+<p>我们也可以绕过 <code>$PATH</code>，通过直接指定需要执行的程序的路径来执行该程序</p>
+<h2 id="在-shell-中导航">在 shell 中导航</h2>
+<h3 id="路径是什么">路径是什么</h3>
+<p>shell 中的路径是一组被分割的目录，在 Linux 和 macOS 上使用 <code>/</code> 分割，而在Windows上是 <code>\</code>。路径 <code>/</code> 代表的是系统的根目录，所有的文件夹都包括在这个路径之下，在Windows上每个盘都有一个根目录（例如： <code>C:\</code>）。</p>
+<h3 id="相对路径和绝对路径">相对路径和绝对路径</h3>
+<p>如果某个路径以 <code>/</code> 开头，那么它是一个 <em>绝对路径</em>，其他的都是 <em>相对路径</em> 。相对路径是指相对于当前工作目录的路径。</p>
+<h3 id="一些导航的常用命令">一些导航的常用命令</h3>
+<table>
+<thead>
+<tr>
+<th>命令名</th>
+<th>作用</th>
+<th>说明</th>
+<th>标记和选项（<code>--help</code> 省略）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pwd</code></td>
+<td>获取当前工作目录</td>
+<td>输出到终端上</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>cd</code></td>
+<td>切换目录</td>
+<td><code>.</code> 表示当前目录，<code>..</code> 表示上级目录；<br />可以用绝对路径切换，也可以用相对路径切换。</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td>查看指定目录下包含哪些文件</td>
+<td>不带参数，则查看当前目录下包含哪些文件<br />带参数，则查看参数所在路径下包含哪些文件<br /></td>
+<td><code>-l</code>：更加详细地列出目录下文件或文件夹信息。</td>
+</tr>
+<tr>
+<td><code>mv</code></td>
+<td>重命名或移动文件</td>
+<td>后跟两个参数，第一个原文件路径，后一个目的文件路径</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>cp</code></td>
+<td>拷贝文件</td>
+<td>后跟两个参数，第一个原文件路径，后一个拷贝目的文件路径</td>
+<td></td>
+</tr>
+<tr>
+<td><code>mkdir</code></td>
+<td>新建文件夹</td>
+<td>后跟多个参数，表示创建多个文件夹</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>rm</code></td>
+<td>删除文件</td>
+<td>后跟多个参数，为待删除文件路径</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>rmdir</code></td>
+<td>删除文件夹</td>
+<td>后跟多个参数，为待删除文件夹<br />只能删除空文件夹</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>cat</code></td>
+<td>获取一个文件中的所有内容</td>
+<td>后跟一个参数，为文件路径；默认将内容输出到终端</td>
+<td></td>
+</tr>
+<tr>
+<td><code>tail</code></td>
+<td>获取输入流内容末尾 <code>n</code> 行的内容</td>
+<td>后跟一个可选参数，表示文件路径；如果输入流中已经有内容，可以不指定；默认输出到终端</td>
+<td><code>-n?</code>：<code>-n</code> 为选项，<code>?</code> 为任意一个数字，合在一起指定获取末尾内容的行数。</td>
+</tr>
+<tr>
+<td><code>grep</code></td>
+<td>在输入流内容中查找指定内容</td>
+<td>默认输出到终端</td>
+<td></td>
+</tr>
+<tr>
+<td><code>man</code></td>
+<td>获取某个程序的文档（用户手册）</td>
+<td>后跟一个参数：程序名</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h3 id="文件和文件夹权限">文件和文件夹权限</h3>
+<p>当使用 <code>ls -l</code> 时，可以看到如下的结果：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">missing:~$ ls -l /home</span><br><span class="line">drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing</span><br></pre></td></tr></table></figure>
+<p>接下来依次解释这一行输出各部分的含义：</p>
+<table>
+<thead>
+<tr>
+<th><code>drwxr-xr-x</code>：文件类型和权限</th>
+<th><code>1</code>：链接数</th>
+<th><code>missing</code>：所有者</th>
+<th><code>users</code>：所有组</th>
+<th><code>4096</code>：文件大小</th>
+<th><code>Jun 15 2019</code>：最后修改时间</th>
+<th><code>missing</code>：文件名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一个字符表示这是一个目录<br />接下来九个字符分成三组，每组三个字符，分别表示不同用户的访问权限：<br />- 第一组表示所有者的权限<br />- 第二组表示所有组的权限<br />- 第三组表示其他用户的权限<br /><code>rwx</code> 三个字母分别代表 ==读、写、执行== 权限</td>
+<td>这是目录的硬链接数，对于目录来说，这是其子目录（包括 <code>.</code> 和 <code>..</code>）的数量。这里显示 1，表示该目录下没有子目录（只有 <code>.</code> 和 <code>..</code>）。</td>
+<td>这是该目录的所有者，即用户 <code>missing</code>。</td>
+<td>这是该目录所属的组，即组 <code>users</code>。</td>
+<td>这是该目录的大小，单位是==字节==。对于目录来说，大小一般是包含目录项所需的字节数。</td>
+<td>这是该目录最后一次修改的时间。格式为 月 日 年，表示该目录在 2019 年 6 月 15 日进行了最后一次修改。</td>
+<td>这是目录的名称，即 <code>missing</code>。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>对于文件来说：<code>rwx</code> 对应的就是文件的 ==读、写、执行==；但是对于文件夹来说：<code>rwx</code> 对应的是该文件夹 ==是否能列出其包含的内容、是否能添加、删除、重命名其包含的内容、是否能进入该目录==。</p>
+<p>**注意⚠️：**如果没有对一个文件夹的执行权限，相当于这个文件夹里的所有文件我都无能为力。</p>
+<p>**因为：**不管是ls命令还是写文件还是读文件内容，都需要给出文件的路径，而如果对文件所处文件夹的没有执行权限，在路径解析到文件夹的时候就拒绝访问了，所以不能执行任何操作。</p>
+</blockquote>
+<h2 id="在程序间创建连接">在程序间创建连接</h2>
+<p>在 shell 中，程序有两个主要的 ==“流”== ：它们的==输入流==和==输出流==。 当程序尝试==读取信息==时，它们会从==输入流中进行读取==，当程序==打印信息==时，它们会将==信息输出到输出流==中。 通常，一个程序的输入输出流都是终端。也就是，用户键盘作为输入，显示器作为输出。 但是，我们也可以重定向这些流！</p>
+<p>最简单的重定向是 <code>&lt; file</code> 和 <code>&gt; file</code>。这两个命令可以将程序的输入输出流分别重定向到文件：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">missing:~$ echo hello &gt; hello.txt</span><br><span class="line">missing:~$ cat hello.txt</span><br><span class="line">hello</span><br><span class="line">missing:~$ cat &lt; hello.txt</span><br><span class="line">hello</span><br><span class="line">missing:~$ cat &lt; hello.txt &gt; hello2.txt</span><br><span class="line">missing:~$ cat hello2.txt</span><br><span class="line">hello</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>使用 <code>&gt;</code> 是覆盖内容，使用 <code>&gt;&gt;</code> 是追加内容。</p>
+</blockquote>
+<p>使用管道（ <em>pipes</em> ），我们能够更好的利用文件重定向。 <code>|</code> 操作符允许我们==将一个程序的输出和另外一个程序的输入连接起来==：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">missing:~$ ls -l / | tail -n1</span><br><span class="line">drwxr-xr-x 1 root  root  4096 Jun 20  2019 var</span><br><span class="line">missing:~$ curl --head --silent google.com | grep --ignore-case content-length | cut --delimiter=&#x27; &#x27; -f2</span><br><span class="line">219</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们会在数据清理一章中更加详细的探讨如何更好的利用管道。</p>
+</blockquote>
+<h2 id="root-用户">root 用户</h2>
+<p>对于大多数的类 Unix 系统，有一类用户是非常特殊的，那就是：==根用户（root user）==。 你应该已经注意到了，在上面的输出结果中，根用户几乎不受任何限制，他可以创建、读取、更新和删除系统中的任何文件。</p>
+<p>通常我们并不会以根用户的身份直接登录系统，因为这样可能会因为某些错误的操作而破坏系统。 取而代之的是我们会在需要的时候使用 <code>sudo</code> 命令。顾名思义，它的作用是让你可以==以 su（super user 或 root 的简写）的身份执行一些操作==。 当你遇到拒绝访问（permission denied）的错误时，通常是因为此时你必须是根用户才能操作。然而，请再次确认你是真的要执行此操作。</p>
+<blockquote>
+<p><strong>使用 <code>sudo</code> 的注意事项⚠️：在 shell 中，<code>|</code>、<code>&gt;</code>、和 <code>&lt;</code> 是通过 shell 执行的，而不是被各个程序单独执行。 <code>echo</code> 等程序并不知道 <code>|</code> 的存在，它们只知道从自己的输入输出流中进行读写。如果要向一个只有 root 用户才有权限访问的文件中写入内容，需要用 <code>sudo</code> 修饰可以往文件中写入内容的某程序，才能顺利写入。总的要点来说：要访问权限受限的文件时，需要用 <code>sudo</code> 修饰访问该文件的程序。</strong></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://FutureYL3.github.io">yl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://futureyl3.github.io/2025/03/02/MIT-The-Missing-Semester-Lec01-The-Shell/">https://futureyl3.github.io/2025/03/02/MIT-The-Missing-Semester-Lec01-The-Shell/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Shell/">Shell</a></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/03/02/Basic-Web-Development/" title="Basic Web Development -- Java Web"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Basic Web Development -- Java Web</div></div><div class="info-2"><div class="info-item-1">Project oriendted way to get to learn web development, using Java Spring Boot, Vue and MySQL.</div></div></div></a><a class="pagination-related" href="/2025/03/02/MIT-The-Missing-Semester-Lec02-Shell-%E5%B7%A5%E5%85%B7%E5%92%8C%E8%84%9A%E6%9C%AC/" title="[MIT The Missing Semester] Lec02: Shell 工具和脚本"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">[MIT The Missing Semester] Lec02: Shell 工具和脚本</div></div><div class="info-2"><div class="info-item-1">Introduction to shell script and useful utils in shell.</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/02/MIT-The-Missing-Semester-Lec02-Shell-%E5%B7%A5%E5%85%B7%E5%92%8C%E8%84%9A%E6%9C%AC/" title="[MIT The Missing Semester] Lec02: Shell 工具和脚本"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="fas fa-history fa-fw"></i> 2025-03-02</div><div class="info-item-2">[MIT The Missing Semester] Lec02: Shell 工具和脚本</div></div><div class="info-2"><div class="info-item-1">Introduction to shell script and useful utils in shell.</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/kano.JPG" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yl</div><div class="author-info-description">Student at Harbin Institute of Technology (HIT) / Major in Software Engineering</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/FutureYL3" target="_blank" title="My GitHub Profile"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://space.bilibili.com/310715755" target="_blank" title="My Bilibili Space"><i class="fa-brands fa-bilibili" style="color: #00a1d6;"></i></a><a class="social-icon" href="/future_yl@outlook.com" target="_blank" title="My Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Lec01：The Shell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-shell"><span class="toc-text">为什么需要 shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-shell"><span class="toc-text">使用 shell</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E8%A7%81-shell"><span class="toc-text">初见 shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-shell-%E4%B8%AD%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="toc-text">在 shell 中执行命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shell-%E5%A6%82%E4%BD%95%E7%9F%A5%E9%81%93%E8%A6%81%E6%89%A7%E8%A1%8C%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%9C%A8%E5%93%AA%EF%BC%9F"><span class="toc-text">shell 如何知道要执行的程序在哪？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-shell-%E4%B8%AD%E5%AF%BC%E8%88%AA"><span class="toc-text">在 shell 中导航</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">路径是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%92%8C%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="toc-text">相对路径和绝对路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%AF%BC%E8%88%AA%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">一些导航的常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%B9%E6%9D%83%E9%99%90"><span class="toc-text">文件和文件夹权限</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%A8%8B%E5%BA%8F%E9%97%B4%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5"><span class="toc-text">在程序间创建连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#root-%E7%94%A8%E6%88%B7"><span class="toc-text">root 用户</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/Web-Development-Sky-Takeout/" title="Web Development -- Sky Takeout">Web Development -- Sky Takeout</a><time datetime="2025-03-02T10:51:57.000Z" title="Created 2025-03-02 18:51:57">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/Springfox-Swagger/" title="Springfox Swagger">Springfox Swagger</a><time datetime="2025-03-02T10:42:33.000Z" title="Created 2025-03-02 18:42:33">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/Database-and-SQL-Basic-Concepts-and-Usage/" title="Database and SQL: Basic Concepts and Usage">Database and SQL: Basic Concepts and Usage</a><time datetime="2025-03-02T10:29:51.000Z" title="Created 2025-03-02 18:29:51">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/MyBatis-Plus-Basic-Usage/" title="MyBatis Plus Basic Usage">MyBatis Plus Basic Usage</a><time datetime="2025-03-02T10:19:09.000Z" title="Created 2025-03-02 18:19:09">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/MIT-The-Missing-Semester-Lec10-Potpourri/" title="[MIT The Missing Semester] Lec10: Potpourri">[MIT The Missing Semester] Lec10: Potpourri</a><time datetime="2025-03-02T10:10:46.000Z" title="Created 2025-03-02 18:10:46">2025-03-02</time></div></div></div></div></div></div></main><footer id="footer" style="background: linear-gradient(to right, rgb(198, 255, 221), rgb(251, 215, 134), rgb(247, 121, 125));"><div id="footer-wrap"><div class="copyright">&copy;2025 By yl</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (true) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const applyThemeDefaultsConfig = theme => {
+    if (theme === 'dark-mode') {
+      Chart.defaults.color = "rgba(255, 255, 255, 0.8)"
+      Chart.defaults.borderColor = "rgba(255, 255, 255, 0.2)"
+      Chart.defaults.scale.ticks.backdropColor = "transparent"
+    } else {
+      Chart.defaults.color = "rgba(0, 0, 0, 0.8)"
+      Chart.defaults.borderColor = "rgba(0, 0, 0, 0.1)"
+      Chart.defaults.scale.ticks.backdropColor = "transparent"
+    }
+  }
+
+  // Recursively traverse the config object and automatically apply theme-specific color schemes
+  const applyThemeConfig = (obj, theme) => {
+    if (typeof obj !== 'object' || obj === null) return
+
+    Object.keys(obj).forEach(key => {
+      const value = obj[key]
+      // If the property is an object and has theme-specific options, apply them
+      if (typeof value === 'object' && value !== null) {
+        if (value[theme]) {
+          obj[key] = value[theme] // Apply the value for the current theme
+        } else {
+          // Recursively process child objects
+          applyThemeConfig(value, theme)
+        }
+      }
+    })
+  }
+
+  const runChartJS = ele => {
+    window.loadChartJS = true
+
+    Array.from(ele).forEach((item, index) => {
+      const chartSrc = item.firstElementChild
+      const chartID = item.getAttribute('data-chartjs-id') || ('chartjs-' + index) // Use custom ID or default ID
+      const width = item.getAttribute('data-width')
+      const existingCanvas = document.getElementById(chartID)
+
+      // If a canvas already exists, remove it to avoid rendering duplicates
+      if (existingCanvas) {
+          existingCanvas.parentNode.remove()
+      }
+
+      const chartDefinition = chartSrc.textContent
+      const canvas = document.createElement('canvas')
+      canvas.id = chartID
+
+      const div = document.createElement('div')
+      div.className = 'chartjs-wrap'
+
+      if (width) {
+        div.style.width = width
+      }
+
+      div.appendChild(canvas)
+      chartSrc.insertAdjacentElement('afterend', div)
+
+      const ctx = document.getElementById(chartID).getContext('2d')
+
+      const config = JSON.parse(chartDefinition)
+
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark-mode' : 'light-mode'
+
+      // Set default styles (initial setup)
+      applyThemeDefaultsConfig(theme)
+
+      // Automatically traverse the config and apply dual-mode color schemes
+      applyThemeConfig(config, theme)
+
+      new Chart(ctx, config)
+    })
+  }
+
+  const loadChartJS = () => {
+    const chartJSEle = document.querySelectorAll('#article-container .chartjs-container')
+    if (chartJSEle.length === 0) return
+
+    window.loadChartJS ? runChartJS(chartJSEle) : btf.getScript('https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js').then(() => runChartJS(chartJSEle))
+  }
+
+  // Listen for theme change events
+  btf.addGlobalFn('themeChange', loadChartJS, 'chartjs')
+  btf.addGlobalFn('encrypt', loadChartJS, 'chartjs')
+
+  window.pjax ? loadChartJS() : document.addEventListener('DOMContentLoaded', loadChartJS)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="search through all posts and pages" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

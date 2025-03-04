@@ -1,0 +1,493 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>NJU-PA: Works and Thoughts | yl's blog</title><meta name="author" content="yl"><meta name="copyright" content="yl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="A series of tasks(PAs) designed by Nanjing University ICS aimed to implement a computer system simulator called NEMU to enhance overall comprehension about computer system.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NJU-PA: Works and Thoughts">
+<meta property="og:url" content="https://futureyl3.github.io/2025/03/01/NJU-PA-Works-and-Thoughts/">
+<meta property="og:site_name" content="yl&#39;s blog">
+<meta property="og:description" content="A series of tasks(PAs) designed by Nanjing University ICS aimed to implement a computer system simulator called NEMU to enhance overall comprehension about computer system.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://futureyl3.github.io/img/kano.JPG">
+<meta property="article:published_time" content="2025-03-01T08:40:59.000Z">
+<meta property="article:modified_time" content="2025-03-01T09:05:00.000Z">
+<meta property="article:author" content="yl">
+<meta property="article:tag" content="NJU">
+<meta property="article:tag" content="Simulator">
+<meta property="article:tag" content="NEMU">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://futureyl3.github.io/img/kano.JPG"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "NJU-PA: Works and Thoughts",
+  "url": "https://futureyl3.github.io/2025/03/01/NJU-PA-Works-and-Thoughts/",
+  "image": "https://futureyl3.github.io/img/kano.JPG",
+  "datePublished": "2025-03-01T08:40:59.000Z",
+  "dateModified": "2025-03-01T09:05:00.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "yl",
+      "url": "https://futureyl3.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://futureyl3.github.io/2025/03/01/NJU-PA-Works-and-Thoughts/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'NJU-PA: Works and Thoughts',
+  isHighlightShrink: undefined,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/kano.JPG" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(to right, rgb(198, 255, 221), rgb(251, 215, 134), rgb(247, 121, 125));"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">yl's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">NJU-PA: Works and Thoughts</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">NJU-PA: Works and Thoughts</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-03-01T08:40:59.000Z" title="Created 2025-03-01 16:40:59">2025-03-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-03-01T09:05:00.000Z" title="Updated 2025-03-01 17:05:00">2025-03-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Computer-System/">Computer System</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>11mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>实验心得记录</h1>
+<h2 id="开天辟地的篇章">开天辟地的篇章</h2>
+<p>必做题</p>
+<img src="/2025/03/01/NJU-PA-Works-and-Thoughts/image-20250113222506458.png" class="">
+<p>解答：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(0, x, x) -&gt; (1, 0, x) -&gt; (2, 0, 0) -&gt; (3, 0, 1) -&gt; (4, 1, 1) -&gt; (2, 1, 1) -&gt; (3, 1, 2) -&gt; (4, 3, 2) -&gt; (2, 3, 2) -&gt; (3, 3, 3) -&gt; (4, 6, 3) -&gt; ... -&gt; (2, 4851, 98) -&gt; (3, 4851, 99) -&gt; (4, 4950, 99) -&gt; (2, 4950, 99) -&gt; (3, 4950, 100) -&gt; (4, 5050, 100) -&gt; (5, 5050, 100) -&gt; (5, 5050, 100) -&gt; ... -&gt; HALT</span><br></pre></td></tr></table></figure>
+<h2 id="RTFSC">RTFSC</h2>
+<h3 id="准备第一个客户程序">准备第一个客户程序</h3>
+<blockquote>
+<h5 id="kconfig-生成的宏与条件编译">kconfig 生成的宏与条件编译</h5>
+<p>我们已经在上文提到过, kconfig 会根据配置选项的结果在 <code>nemu/include/generated/autoconf.h</code> 中定义一些形如 <code>CONFIG_xxx</code> 的宏, 我们可以在C代码中通过条件编译的功能对这些宏进行测试, 来判断是否编译某些代码. 例如, 当 <code>CONFIG_DEVICE</code> 这个宏没有定义时, 设备相关的代码就无需进行编译.</p>
+<p>为了编写更紧凑的代码, 我们在 <code>nemu/include/macro.h</code> 中定义了一些专门用来对宏进行测试的宏. 例如 <code>IFDEF(CONFIG_DEVICE, init_device());</code> 表示, 如果定义了<code>CONFIG_DEVICE</code>, 才会调用 <code>init_device()</code> 函数; 而 <code>MUXDEF(CONFIG_TRACE, &quot;ON&quot;, &quot;OFF&quot;)</code> 则表示, 如果定义了 <code>CONFIG_TRACE</code>, 则预处理结果为 <code>&quot;ON&quot;</code>(<code>&quot;OFF&quot;</code> 在预处理后会消失), 否则预处理结果为 <code>&quot;OFF&quot;</code>.</p>
+<p>这些宏的功能非常神奇, 你知道这些宏是如何工作的吗?</p>
+</blockquote>
+<p>初步阅读总结：通过不断展开宏来一步步选择出结果或要执行的函数</p>
+<blockquote>
+<h5 id="为什么全部都是函数">为什么全部都是函数?</h5>
+<p>阅读 <code>init_monitor()</code> 函数的代码, 你会发现里面全部都是函数调用. 按道理, 把相应的函数体在 <code>init_monitor()</code> 中展开也不影响代码的正确性. 相比之下, 在这里使用函数有什么好处呢?</p>
+</blockquote>
+<p>回答：因为 <code>monitor</code> 所承担的功能是初始化系统各部分以准备开始调试，在这里使用函数方便灵活，可以灵活决定是把初始化的实现交给 <code>monitor</code> 还是交给初始化部分自身。也是代码的一种模块化组织方法。</p>
+<blockquote>
+<h5 id="参数的处理过程">参数的处理过程</h5>
+<p>另外的一个问题是, 这些参数是从哪里来的呢?</p>
+</blockquote>
+<p>在启动 <code>nemu</code> 时，会调用 <code>nemu-main.c</code> 文件中的 <code>main</code> 函数，同时会传递命令行参数，在其中调用 <code>init_monitor</code> 函数时，会传递命令行参数。</p>
+<blockquote>
+<h5 id="究竟要执行多久">究竟要执行多久?</h5>
+<p>在 <code>cmd_c()</code> 函数中, 调用 <code>cpu_exec()</code> 的时候传入了参数 <code>-1</code>, 你知道这是什么意思吗?</p>
+</blockquote>
+<p><code>cpu_exec()</code> 的函数签名：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">cpu_exec</span><span class="params">(<span class="type">uint64_t</span> n)</span>;</span><br></pre></td></tr></table></figure>
+<p>传入参数 <code>-1</code> 在类型 <code>uint64_t</code> 中表示为最大值（具体为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>64</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{64} - 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">64</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>），再结合 <code>cpu_exec()</code> 中调用的函数 <code>execute()</code> 的函数体内容：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">execute</span><span class="params">(<span class="type">uint64_t</span> n)</span> &#123;</span><br><span class="line">	Decode s;</span><br><span class="line">    <span class="keyword">for</span> (; n &gt; <span class="number">0</span>; n --) &#123;</span><br><span class="line">        exec_once(&amp;s, cpu.pc);</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可知这是在模拟键入 <code>continue</code> 后，放任程序继续运行直到程序退出或者程序遇到下一个断点或者程序抛出异常，由于最大可运行步数为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>64</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{64}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">64</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> 步（十分大的数），可认为键入 <code>continue</code> 后程序会一直运行。</p>
+<blockquote>
+<h5 id="潜在的威胁-建议二周目思考">潜在的威胁 (建议二周目思考)</h5>
+<p>“调用 <code>cpu_exec()</code> 的时候传入了参数<code>-1</code>”, 这一做法属于未定义行为吗? 请查阅C99手册确认你的想法.</p>
+</blockquote>
+<p>初步思考：这一做法是定义良好的，向类型 <code>uint64_t</code> 传入参数 <code>-1</code> 会使得被赋值为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>64</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{64} -1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">64</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>. 具体来说，任何负数都会被赋值为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>e</mi><mi>g</mi><mi mathvariant="normal">/</mi><msup><mn>2</mn><mi>N</mi></msup><mo separator="true">,</mo><mspace width="1em"/><mi>N</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">neg / 2^N, \quad N=64</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0913em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord">/</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:1em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">64</span></span></span></span>.</p>
+<blockquote>
+<h5 id="谁来指示程序的结束">谁来指示程序的结束?</h5>
+<p>在程序设计课上老师告诉你, 当程序执行到 <code>main()</code> 函数返回处的时候, 程序就退出了, 你对此深信不疑. 但你是否怀疑过, 凭什么程序执行到 <code>main()</code> 函数的返回处就结束了? 如果有人告诉你, 程序设计课上老师的说法是错的, 你有办法来证明/反驳吗? 如果你对此感兴趣, 请在互联网上搜索相关内容.</p>
+</blockquote>
+<p>来自 GPT：在大多数常见的 C 程序中，当 <code>main</code> 函数返回后，程序结束是由运行时库调用 <code>exit</code> 进而由操作系统管理完成的；而在没有操作系统的场景中，需要程序员额外编写代码来处理退出后如何停止或复位系统。比如：</p>
+<ul>
+<li>让处理器进入低功耗状态或死循环；</li>
+<li>或者调用硬件相关的复位（reset）机制，重新启动系统；</li>
+<li>甚至设计特定的 “退出” 函数，来执行必要的清理并通知硬件程序已经结束。</li>
+</ul>
+<blockquote>
+<h5 id="有始有终-建议二周目思考">有始有终 (建议二周目思考)</h5>
+<p>对于GNU/Linux上的一个程序, 怎么样才算开始? 怎么样才算是结束? 对于在NEMU中运行的程序, 问题的答案又是什么呢?</p>
+<p>与此相关的问题还有: NEMU中为什么要有 <code>nemu_trap</code> ? 为什么要有monitor?</p>
+</blockquote>
+<p>来自GPT：</p>
+<p>GNU/Linux 程序：</p>
+<p><strong>开始</strong>：内核加载程序、创建进程，到 CRT 的 <code>_start</code> 开始运行，再到 CRT 调用 <code>main</code>。</p>
+<p><strong>结束</strong>：当程序调用退出机制（无论是 <code>main</code> 返回还是显式调用 <code>exit</code>），并由 CRT 通过系统调用告知内核进程退出后，操作系统完成资源回收，程序就算结束了。</p>
+<p>NEMU 环境：</p>
+<p><strong>开始</strong>：从复位向量开始执行启动代码，初始化后进入主程序。</p>
+<p><strong>结束</strong>：没有操作系统来管理退出，程序需要通过特殊的（约定或设计）退出机制（例如特定指令或陷入死循环）来通知模拟器程序结束或进入停机状态。</p>
+<p>为什么要有 <code>nemu_trap</code> ? 为什么要有 monitor?</p>
+<p><code>nemu_trap</code> 就是特殊设计的（或约定的）程序退出机制。monitor 相当于操作系统（当然是及其简易的操作系统），承担了操作系统处理程序退出的功能（捕获 <code>nemu_trap</code> 并退出程序）。</p>
+<p>GPT 对此回答的评论：</p>
+<p>你的回答抓住了核心思想，基本上是正确的。具体来说：</p>
+<ol>
+<li><strong>nemu_trap</strong>
+<ul>
+<li>你的回答指出 <code>nemu_trap</code> 是一种特殊设计或约定的程序退出机制，这是正确的。在 NEMU 环境中，<code>nemu_trap</code> 用来通知 monitor 某些重要事件（如程序结束、断点命中、错误等），从而实现类似于中断或系统调用的功能。</li>
+</ul>
+</li>
+<li><strong>monitor</strong>
+<ul>
+<li>你提到 monitor 类似于一个及其简易的操作系统，承担了捕获 <code>nemu_trap</code> 并处理程序退出的功能。确实，monitor 在 NEMU 中扮演着类似操作系统的角色，不仅用于捕获退出信号，还可能负责调试、资源管理等其他基础功能。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<h5 id="优美地退出">优美地退出</h5>
+<p>为了测试大家是否已经理解框架代码, 我们给大家设置一个练习: 如果在运行NEMU之后直接键入<code>q</code>退出, 你会发现终端输出了一些错误信息. 请分析这个错误信息是什么原因造成的, 然后尝试在NEMU中修复它.</p>
+</blockquote>
+<p>报错截图：</p>
+<img src="/2025/03/01/NJU-PA-Works-and-Thoughts/image-20250207000627114.png" class="">
+<p>修复步骤：查看报错，发现是在 makefile 里报的错，发现是因为 <code>make run</code> 的返回值不为 0，导致 makefile 报错。进一步查看 <code>make run</code> 内执行的指令，发现就是执行 <code>nemu</code> 编译后的可执行文件，所以断定是 <code>nemu</code> 的可执行文件（即 <code>nemu</code> 本体）退出时返回值不为 0。进一步跟踪 <code>nemu</code> 的 <code>main</code> 函数的执行，发现在输入 <code>q</code> 后，<code>sdb_mainloop()</code> 直接返回，然后 <code>main</code> 函数返回函数 <code>is_exit_status_bad()</code> 的返回值。查看该函数，其内容如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">is_exit_status_bad</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="type">int</span> good = (nemu_state.state == NEMU_END &amp;&amp; nemu_state.halt_ret == <span class="number">0</span>) || (nemu_state.state == NEMU_QUIT);</span><br><span class="line">	<span class="keyword">return</span> !good;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>||</code> 的前面表示程序结束且返回值为 0，即程序正常退出，后面表示键入 <code>q</code> 后模拟器退出。这两种情况都视为退出状态是好的。于是我们查看键入 <code>q</code> 后程序的行为：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">cmd_q</span><span class="params">(<span class="type">char</span> *args)</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可见，键入 <code>q</code> 后，其对应的处理函数只有一条语句：返回 -1，这本身没错，这会导致 <code>sdb_mainloop()</code> 函数返回。但是其因为没有设置 <code>nemu</code> 的状态为 <code>QUIT</code>，所以导致最后函数 <code>is_exit_status_bad()</code> 的返回值为 1，不为 0，导致 makefile 报错。所以解决方案很简单了，就是在 <code>return -1</code> 之前，设置 <code>nemu</code> 的状态为 <code>QUIT</code>。</p>
+<p>通过 gdb 调试 <code>nemu</code> 可执行文件得知，<code>nemu</code> 的状态结构体 类型 <code>NEMUState</code> 是在 <code>utils.h</code> 文件中定义的，并在该文件中声明了一个该类型的全局变量（说是声明，其实不完全是，这个语句的作用仅仅是：告诉编译器：“某个全局变量 <code>nemu_state</code> 存在，但它的定义在别处”，而不会分配内存）： <code>extern NEMUState nemu_state</code>，并在文件 <code>state.c</code> 中定义和初始化了该变量：<code>NEMUState nemu_state = &#123; .state = NEMU_STOP &#125;;</code>。通过询问 GPT 得知，如果要在其他文件中使用这个变量，只需要包含头文件 <code>utils.h</code> 就行，所以要做的改动就很简单了：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;utils.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> <span class="title function_">cmd_q</span><span class="params">(<span class="type">char</span> *args)</span> &#123;</span><br><span class="line">    nemu_state.state = NEMU_QUIT;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重新编译，直接键入 <code>q</code>，发现问题已经解决，没有报错：</p>
+<img src="/2025/03/01/NJU-PA-Works-and-Thoughts/image-20250207002317754.png" class="">
+<h2 id="表达式求值">表达式求值</h2>
+<h3 id="不兼容的正则表达式">不兼容的正则表达式</h3>
+<p>以下代码遇到奇怪 <code>bug</code>：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">rule</span> &#123;</span></span><br><span class="line">  <span class="type">const</span> <span class="type">char</span> *regex;</span><br><span class="line">  <span class="type">int</span> token_type;</span><br><span class="line">&#125; rules[] = &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* <span class="doctag">TODO:</span> Add more rules.</span></span><br><span class="line"><span class="comment">   * Pay attention to the precedence level of different rules.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line"></span><br><span class="line">  &#123;<span class="string">&quot; +&quot;</span>, TK_NOTYPE&#125;,    <span class="comment">// spaces</span></span><br><span class="line">  &#123;<span class="string">&quot;[0-9]+&quot;</span>, TK_DEC&#125;,     <span class="comment">// decimal number</span></span><br><span class="line">  &#123;<span class="string">&quot;\\(&quot;</span>, TK_LPAR&#125;,     <span class="comment">// left parentheses</span></span><br><span class="line">  &#123;<span class="string">&quot;\\)&quot;</span>, TK_RPAR&#125;,     <span class="comment">// right parentheses</span></span><br><span class="line">  &#123;<span class="string">&quot;\\*&quot;</span>, <span class="string">&#x27;*&#x27;</span>&#125;,         <span class="comment">// times</span></span><br><span class="line">  &#123;<span class="string">&quot;/&quot;</span>, <span class="string">&#x27;/&#x27;</span>&#125;,           <span class="comment">// divide</span></span><br><span class="line">  &#123;<span class="string">&quot;\\+&quot;</span>, <span class="string">&#x27;+&#x27;</span>&#125;,         <span class="comment">// plus</span></span><br><span class="line">  &#123;<span class="string">&quot;-&quot;</span>, <span class="string">&#x27;-&#x27;</span>&#125;,           <span class="comment">// minus</span></span><br><span class="line">  &#123;<span class="string">&quot;==&quot;</span>, TK_EQ&#125;,        <span class="comment">// equal</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>将 <code>[0-9]+</code> 替换为 <code>\\d+</code> 将不能正常识别出阿拉伯数字，原因猜想可能与 POSIX 的正则表达式函数有关。</p>
+<blockquote>
+<h5 id="表达式生成器如何获得C程序的打印结果">表达式生成器如何获得C程序的打印结果?</h5>
+<p>代码中这部分的内容没有任何注释, 聪明的你也许马上就反应过来: 竟然是个RTFM的圈套! 阅读手册了解API的具体行为可是程序员的基本功. 如果觉得去年一整年的程序员都白当了, 就从现在开始好好锻炼吧.</p>
+</blockquote>
+<p>使用如下代码：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">fp = popen(<span class="string">&quot;/tmp/.expr&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">assert(fp != <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> result;</span><br><span class="line">ret = <span class="built_in">fscanf</span>(fp, <span class="string">&quot;%d&quot;</span>, &amp;result);</span><br><span class="line">pclose(fp);</span><br></pre></td></tr></table></figure>
+<p><code>popen</code> 会打开并执行编译好的文件，并将结果输出，<code>fscanf</code> 从输出流中拿结果并赋值给 <code>result</code>.</p>
+<blockquote>
+<h5 id="为什么要使用无符号类型-建议二周目思考">为什么要使用无符号类型? (建议二周目思考)</h5>
+<p>我们在表达式求值中约定, 所有运算都是无符号运算. 你知道为什么要这样约定吗? 如果进行有符号运算, 有可能会发生什么问题?</p>
+</blockquote>
+<p>有符号运算可能导致运算结果为负数，反应到机器内存地址上造成内存访问出界</p>
+<blockquote>
+<h5 id="除-0-的确切行为">除 0 的确切行为</h5>
+<p>如果生成的表达式有除 0 行为, 你编写的表达式生成器的行为又会怎么样呢?</p>
+</blockquote>
+<p>在进行错误检查之前，会弹出除零警告，该表达式求值失败，但不会影响后续表达式求值。</p>
+<p>进行错误检查后，当发现除零异常时，会跳过该表达式的求值结果打印，直接进行下一个表达式的结果打印。</p>
+<h3 id="小插曲">小插曲</h3>
+<p>改造 <code>nemu</code> 的 <code>main</code> 函数为如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;common.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;/home/yl/ics2022/nemu/src/monitor/sdb/sdb.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">init_monitor</span><span class="params">(<span class="type">int</span>, <span class="type">char</span> *[])</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">am_init_monitor</span><span class="params">()</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">engine_start</span><span class="params">()</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">is_exit_status_bad</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> &#123;</span><br><span class="line"><span class="comment">//  /* Initialize the monitor. */</span></span><br><span class="line"><span class="comment">// #ifdef CONFIG_TARGET_AM</span></span><br><span class="line"><span class="comment">//   am_init_monitor();</span></span><br><span class="line"><span class="comment">// #else</span></span><br><span class="line"><span class="comment">//   init_monitor(argc, argv);</span></span><br><span class="line"><span class="comment">// #endif</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//   /* Start engine. */</span></span><br><span class="line"><span class="comment">//   engine_start();</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//   return is_exit_status_bad();</span></span><br><span class="line"></span><br><span class="line">  FILE *fp = fopen(<span class="string">&quot;/home/yl/input&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">  assert(fp != <span class="literal">NULL</span>);</span><br><span class="line">  <span class="type">word_t</span> expected = <span class="number">0</span>;</span><br><span class="line">  <span class="type">char</span> buf[<span class="number">65536</span> + <span class="number">100</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">  <span class="type">char</span> <span class="built_in">exp</span>[<span class="number">65536</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">  <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (fgets(buf, <span class="keyword">sizeof</span>(buf), fp) != <span class="literal">NULL</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">sscanf</span>(buf, <span class="string">&quot;%u %[^\n]&quot;</span>, &amp;expected, <span class="built_in">exp</span>) == <span class="number">2</span>) &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Number: %u, String: %s\n&quot;</span>, expected, <span class="built_in">exp</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">bool</span> success = <span class="literal">false</span>;</span><br><span class="line">    <span class="type">word_t</span> actual = expr(<span class="built_in">exp</span>, &amp;success);</span><br><span class="line">    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">      <span class="keyword">if</span> (actual == expected) &#123;</span><br><span class="line">        count++;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Match!! expected is %u, actula is %u\n&quot;</span>, expected, actual);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Don&#x27;t Match. expected is %u, actula is %u\n&quot;</span>, expected, actual);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;evaluation failed at %s\n&quot;</span>, <span class="built_in">exp</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Total match: %d/%d\n&quot;</span>, count, <span class="number">100</span>);</span><br><span class="line">  fclose(fp);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现每次程序运行到 <code>make_token</code> 的 <code>regexec</code> 调用时就发生段错误，检查代码，发现正则表达式是在函数 <code>init_monitor</code> 中编译的，因为在 <code>main</code> 中注释掉了，所以导致 <code>regexec</code> 段错误，取消注释，问题解决。</p>
+<img src="/2025/03/01/NJU-PA-Works-and-Thoughts/image-20250218003706612.png" class="">
+<p>9359 条随机生成表达式（数字局限在 1-9）测试全部正确求值！</p>
+<p>TODO：随机生成 1-3 位数的数字（完成如下，全部正确求值）</p>
+<img src="/2025/03/01/NJU-PA-Works-and-Thoughts/image-20250222235311735.png" class="">
+<p>至此 <code>PA1.2</code> 圆满完成</p>
+<h2 id="监视点">监视点</h2>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://FutureYL3.github.io">yl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://futureyl3.github.io/2025/03/01/NJU-PA-Works-and-Thoughts/">https://futureyl3.github.io/2025/03/01/NJU-PA-Works-and-Thoughts/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/NJU/">NJU</a><a class="post-meta__tags" href="/tags/Simulator/">Simulator</a><a class="post-meta__tags" href="/tags/NEMU/">NEMU</a></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/03/02/%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B-%E5%A7%9C%E5%90%AF%E6%BA%90-%E7%AC%AC%E4%B8%80%E7%AB%A0%EF%BC%9A%E5%BB%BA%E7%AB%8B%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B/" title="[数学模型 姜启源] 第一章：建立数学模型"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">[数学模型 姜启源] 第一章：建立数学模型</div></div><div class="info-2"><div class="info-item-1">介绍数学模型的概念、分类，原型与模型的区别，若干建模案例以及数学建模的两种方法及其基本步骤。</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/kano.JPG" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yl</div><div class="author-info-description">Student at Harbin Institute of Technology (HIT) / Major in Software Engineering</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/FutureYL3" target="_blank" title="My GitHub Profile"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://space.bilibili.com/310715755" target="_blank" title="My Bilibili Space"><i class="fa-brands fa-bilibili" style="color: #00a1d6;"></i></a><a class="social-icon" href="/future_yl@outlook.com" target="_blank" title="My Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">实验心得记录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A4%A9%E8%BE%9F%E5%9C%B0%E7%9A%84%E7%AF%87%E7%AB%A0"><span class="toc-text">开天辟地的篇章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RTFSC"><span class="toc-text">RTFSC</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%A2%E6%88%B7%E7%A8%8B%E5%BA%8F"><span class="toc-text">准备第一个客户程序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#kconfig-%E7%94%9F%E6%88%90%E7%9A%84%E5%AE%8F%E4%B8%8E%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91"><span class="toc-text">kconfig 生成的宏与条件编译</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%85%A8%E9%83%A8%E9%83%BD%E6%98%AF%E5%87%BD%E6%95%B0"><span class="toc-text">为什么全部都是函数?</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E7%9A%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="toc-text">参数的处理过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A9%B6%E7%AB%9F%E8%A6%81%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%B9%85"><span class="toc-text">究竟要执行多久?</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%BD%9C%E5%9C%A8%E7%9A%84%E5%A8%81%E8%83%81-%E5%BB%BA%E8%AE%AE%E4%BA%8C%E5%91%A8%E7%9B%AE%E6%80%9D%E8%80%83"><span class="toc-text">潜在的威胁 (建议二周目思考)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%81%E6%9D%A5%E6%8C%87%E7%A4%BA%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BB%93%E6%9D%9F"><span class="toc-text">谁来指示程序的结束?</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89%E5%A7%8B%E6%9C%89%E7%BB%88-%E5%BB%BA%E8%AE%AE%E4%BA%8C%E5%91%A8%E7%9B%AE%E6%80%9D%E8%80%83"><span class="toc-text">有始有终 (建议二周目思考)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%98%E7%BE%8E%E5%9C%B0%E9%80%80%E5%87%BA"><span class="toc-text">优美地退出</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC"><span class="toc-text">表达式求值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%85%BC%E5%AE%B9%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">不兼容的正则表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%94%9F%E6%88%90%E5%99%A8%E5%A6%82%E4%BD%95%E8%8E%B7%E5%BE%97C%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%89%93%E5%8D%B0%E7%BB%93%E6%9E%9C"><span class="toc-text">表达式生成器如何获得C程序的打印结果?</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E6%97%A0%E7%AC%A6%E5%8F%B7%E7%B1%BB%E5%9E%8B-%E5%BB%BA%E8%AE%AE%E4%BA%8C%E5%91%A8%E7%9B%AE%E6%80%9D%E8%80%83"><span class="toc-text">为什么要使用无符号类型? (建议二周目思考)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%99%A4-0-%E7%9A%84%E7%A1%AE%E5%88%87%E8%A1%8C%E4%B8%BA"><span class="toc-text">除 0 的确切行为</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E6%8F%92%E6%9B%B2"><span class="toc-text">小插曲</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%91%E8%A7%86%E7%82%B9"><span class="toc-text">监视点</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/Web-Development-Sky-Takeout/" title="Web Development -- Sky Takeout">Web Development -- Sky Takeout</a><time datetime="2025-03-02T10:51:57.000Z" title="Created 2025-03-02 18:51:57">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/Springfox-Swagger/" title="Springfox Swagger">Springfox Swagger</a><time datetime="2025-03-02T10:42:33.000Z" title="Created 2025-03-02 18:42:33">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/Database-and-SQL-Basic-Concepts-and-Usage/" title="Database and SQL: Basic Concepts and Usage">Database and SQL: Basic Concepts and Usage</a><time datetime="2025-03-02T10:29:51.000Z" title="Created 2025-03-02 18:29:51">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/MyBatis-Plus-Basic-Usage/" title="MyBatis Plus Basic Usage">MyBatis Plus Basic Usage</a><time datetime="2025-03-02T10:19:09.000Z" title="Created 2025-03-02 18:19:09">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/MIT-The-Missing-Semester-Lec10-Potpourri/" title="[MIT The Missing Semester] Lec10: Potpourri">[MIT The Missing Semester] Lec10: Potpourri</a><time datetime="2025-03-02T10:10:46.000Z" title="Created 2025-03-02 18:10:46">2025-03-02</time></div></div></div></div></div></div></main><footer id="footer" style="background: linear-gradient(to right, rgb(198, 255, 221), rgb(251, 215, 134), rgb(247, 121, 125));"><div id="footer-wrap"><div class="copyright">&copy;2025 By yl</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (true) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const applyThemeDefaultsConfig = theme => {
+    if (theme === 'dark-mode') {
+      Chart.defaults.color = "rgba(255, 255, 255, 0.8)"
+      Chart.defaults.borderColor = "rgba(255, 255, 255, 0.2)"
+      Chart.defaults.scale.ticks.backdropColor = "transparent"
+    } else {
+      Chart.defaults.color = "rgba(0, 0, 0, 0.8)"
+      Chart.defaults.borderColor = "rgba(0, 0, 0, 0.1)"
+      Chart.defaults.scale.ticks.backdropColor = "transparent"
+    }
+  }
+
+  // Recursively traverse the config object and automatically apply theme-specific color schemes
+  const applyThemeConfig = (obj, theme) => {
+    if (typeof obj !== 'object' || obj === null) return
+
+    Object.keys(obj).forEach(key => {
+      const value = obj[key]
+      // If the property is an object and has theme-specific options, apply them
+      if (typeof value === 'object' && value !== null) {
+        if (value[theme]) {
+          obj[key] = value[theme] // Apply the value for the current theme
+        } else {
+          // Recursively process child objects
+          applyThemeConfig(value, theme)
+        }
+      }
+    })
+  }
+
+  const runChartJS = ele => {
+    window.loadChartJS = true
+
+    Array.from(ele).forEach((item, index) => {
+      const chartSrc = item.firstElementChild
+      const chartID = item.getAttribute('data-chartjs-id') || ('chartjs-' + index) // Use custom ID or default ID
+      const width = item.getAttribute('data-width')
+      const existingCanvas = document.getElementById(chartID)
+
+      // If a canvas already exists, remove it to avoid rendering duplicates
+      if (existingCanvas) {
+          existingCanvas.parentNode.remove()
+      }
+
+      const chartDefinition = chartSrc.textContent
+      const canvas = document.createElement('canvas')
+      canvas.id = chartID
+
+      const div = document.createElement('div')
+      div.className = 'chartjs-wrap'
+
+      if (width) {
+        div.style.width = width
+      }
+
+      div.appendChild(canvas)
+      chartSrc.insertAdjacentElement('afterend', div)
+
+      const ctx = document.getElementById(chartID).getContext('2d')
+
+      const config = JSON.parse(chartDefinition)
+
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark-mode' : 'light-mode'
+
+      // Set default styles (initial setup)
+      applyThemeDefaultsConfig(theme)
+
+      // Automatically traverse the config and apply dual-mode color schemes
+      applyThemeConfig(config, theme)
+
+      new Chart(ctx, config)
+    })
+  }
+
+  const loadChartJS = () => {
+    const chartJSEle = document.querySelectorAll('#article-container .chartjs-container')
+    if (chartJSEle.length === 0) return
+
+    window.loadChartJS ? runChartJS(chartJSEle) : btf.getScript('https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js').then(() => runChartJS(chartJSEle))
+  }
+
+  // Listen for theme change events
+  btf.addGlobalFn('themeChange', loadChartJS, 'chartjs')
+  btf.addGlobalFn('encrypt', loadChartJS, 'chartjs')
+
+  window.pjax ? loadChartJS() : document.addEventListener('DOMContentLoaded', loadChartJS)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="search through all posts and pages" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Springfox Swagger | yl's blog</title><meta name="author" content="yl"><meta name="copyright" content="yl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Introduction to OpenAPI and Swagger using Springfox.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Springfox Swagger">
+<meta property="og:url" content="https://futureyl3.github.io/2025/03/02/Springfox-Swagger/">
+<meta property="og:site_name" content="yl&#39;s blog">
+<meta property="og:description" content="Introduction to OpenAPI and Swagger using Springfox.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://futureyl3.github.io/img/kano.JPG">
+<meta property="article:published_time" content="2025-03-02T10:42:33.000Z">
+<meta property="article:modified_time" content="2025-03-02T10:42:33.000Z">
+<meta property="article:author" content="yl">
+<meta property="article:tag" content="Swagger">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://futureyl3.github.io/img/kano.JPG"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Springfox Swagger",
+  "url": "https://futureyl3.github.io/2025/03/02/Springfox-Swagger/",
+  "image": "https://futureyl3.github.io/img/kano.JPG",
+  "datePublished": "2025-03-02T10:42:33.000Z",
+  "dateModified": "2025-03-02T10:42:33.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "yl",
+      "url": "https://futureyl3.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://futureyl3.github.io/2025/03/02/Springfox-Swagger/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"No results found for: ${query}","hits_stats":"${hits} articles found"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":true,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: false,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Springfox Swagger',
+  isHighlightShrink: undefined,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/kano.JPG" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(to right, rgb(198, 255, 221), rgb(251, 215, 134), rgb(247, 121, 125));"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">yl's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">Springfox Swagger</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> Search</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Springfox Swagger</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-03-02T10:42:33.000Z" title="Created 2025-03-02 18:42:33">2025-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-03-02T10:42:33.000Z" title="Updated 2025-03-02 18:42:33">2025-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web-Server-Framework/">Web Server Framework</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Web-Server-Framework/Spring-Boot/">Spring Boot</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>14mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>Springfox-Swagger</h1>
+<h2 id="OpenAPI-与-Swagger">OpenAPI 与 Swagger</h2>
+<h3 id="OpenAPI-简介">OpenAPI 简介</h3>
+<p><a href="https://link.juejin.cn?target=https%3A%2F%2Fswagger.io%2Fresources%2Fopen-api%2F">OpenAPI</a> 规范（OAS）为 RESTful API 定义了一个标准、与编程语言无关的 API 描述规范。它允许人类和计算机在不查看源码、文档或通过监控网络流量的情况下发现和理解服务。正确使用 OpenAPI ，可以让使用者在不需要或更少的理解服务实现逻辑情况下，更好更轻松的理解服务并与之交互。</p>
+<p>完整的 OpenAPI 规范请看：<a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2FOAI%2FOpenAPI-Specification%2Fblob%2Fmain%2Fversions%2F3.0.3.md">OpenAPI Specification</a></p>
+<h3 id="Swagger-简介">Swagger 简介</h3>
+<p>上述说到 OpenAPI 是一个规范，而 Swagger 也是一个规范，是 OpenAPI 规范的前身。Swagger 规范已于 2015 年捐赠给 Linux 基金会后改名为 OpenAPI，并定义最新的规范为 OpenAPI 3.0。所以现在的 Swagger 3.0 就是 OpenAPI 3.0。</p>
+<p>通常我们所说的 Swagger 是指由 SmartBear Software 开发维护的一套用于实现 OpenAPI 规范的工具组合名称。Swagger 工具包含开源、免费和商用工具的组合，可用于整个 API 生命周期的开发。</p>
+<p>关于这两者区别的详细信息可查看：<a href="https://link.juejin.cn?target=https%3A%2F%2Fsmartbear.com%2Fblog%2Fwhat-is-the-difference-between-swagger-and-openapi%2F">What Is the Difference Between Swagger and OpenAPI?</a></p>
+<p>Swagger 官方：<a href="https://link.juejin.cn?target=https%3A%2F%2Fswagger.io%2F">swagger.io/</a></p>
+<p><strong>一句话总结：OpenAPI 是一个规范，而 Swagger 是用于实现规范的工具组合。</strong></p>
+<h2 id="SpringFox-与-SpringDoc">SpringFox 与 SpringDoc</h2>
+<h3 id="SpringFox-简介">SpringFox 简介</h3>
+<p><a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fspringfox%2Fspringfox">SpringFox</a> 是 Spring 社区维护的一个项目（非官方），帮助使用者将 Swagger 2 集成到 Spring 中。常常用于 Spring 中帮助开发者生成文档，并可以轻松的在 Spring Boot 中使用。</p>
+<p><strong>SpringFox 3.0 相关特性</strong></p>
+<ul>
+<li>
+<p>支持 Spring 5，Webflux（仅请求映射支持，尚不支持功能端点）、Spring Integration</p>
+</li>
+<li>
+<p>补充官方在 Spring Boot 的自动装配 <code>springfox-boot-starter</code>， 以后只需依赖一个 <code>dependency</code></p>
+</li>
+<li>
+<p>与2.0相比更好的规范兼容性</p>
+</li>
+<li>
+<p>支持OpenApi 3.0.3</p>
+</li>
+<li>
+<p>轻依赖 <a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fspring-projects%2Fspring-plugin">spring-plugin</a>，<a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fswagger-api%2Fswagger-core">swagger-core</a></p>
+</li>
+<li>
+<p>现有的 Swagger 2 注解继续有效并丰富 OpenAPI 3.0 规范</p>
+</li>
+</ul>
+<p>Github: <a href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fspringfox%2Fspringfox">github.com/springfox/s…</a></p>
+<h3 id="SpringDoc-简介">SpringDoc 简介</h3>
+<p><a href="https://link.juejin.cn?target=https%3A%2F%2Fspringdoc.org%2F">SpringDoc</a> 也是 Spring 社区维护的一个项目（非官方），帮助使用者将 Swagger 3 集成到 Spring 中。</p>
+<p>SpringDoc 支持 Swagger 页面 Oauth2 登录，相较于 SpringFox 而言，它的支撑时间更长，<strong>无疑是更好的选择</strong>。但是在国内发展较慢，很少看到太多有用的文档，百度出来的基本全是 Swagger 2 的内容，不过 <a href="https://link.juejin.cn?target=https%3A%2F%2Fspringdoc.org%2F">官网文档</a> 也给出了详细的使用说明。SpringDoc 使用了 Swagger 3（OpenAPI 3），但 Swagger 3 并未对 Swagger 2 的注解做兼容，不易迁移。</p>
+<h4 id="从-SpringFox-迁移到-SpringDoc">从 SpringFox 迁移到 SpringDoc</h4>
+<p>官网文档有介绍：<a href="https://link.juejin.cn/?target=https%3A%2F%2Fspringdoc.org%2F%23migrating-from-springfox">Migrating from SpringFox</a></p>
+<p>这里就不做过多介绍了。</p>
+<p>以下将介绍使用 Springfox 来集成 Swagger 3 到 Spring Boot 中，并使用 Swagger 3 的注解。</p>
+<h2 id="Spring-Boot-中使用-Springfox-整合-Swagger-3（OpenAPI-3）">Spring Boot 中使用 Springfox 整合 Swagger 3（OpenAPI 3）</h2>
+<h3 id="Swagger-3（OpenAPI-3）常用注解介绍">Swagger 3（OpenAPI 3）常用注解介绍</h3>
+<h4 id="1-OpenAPIDefinition">1. <code>@OpenAPIDefinition</code></h4>
+<p>用于描述标签、文档信息、安全配置及外部文档，用在类上。</p>
+<p>常用参数：</p>
+<ul>
+<li><code>info</code>：描述文档信息，详情见以下的 <code>@Info</code></li>
+<li><code>tags</code>：定义标签列表，详情见以下的 <code>@Tag</code></li>
+<li><code>servers</code>：目标服务器连接列表，详情见以下的 <code>@Server</code></li>
+<li><code>externalDocs</code>：API 的一些外部文档，详情见以下的 <code>@ExternalDocumentation</code></li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@OpenAPIDefinition(</span></span><br><span class="line"><span class="meta">    tags = &#123;</span></span><br><span class="line"><span class="meta">        @Tag(name = &quot;用户管理&quot;, description = &quot;用户模块操作&quot;),</span></span><br><span class="line"><span class="meta">        @Tag(name = &quot;角色管理&quot;, description = &quot;角色模块操作&quot;)</span></span><br><span class="line"><span class="meta">    &#125;,</span></span><br><span class="line"><span class="meta">    info = @Info(</span></span><br><span class="line"><span class="meta">        title = &quot;用户接口 API 文档&quot;,</span></span><br><span class="line"><span class="meta">        description = &quot;用户数据管理......&quot;,</span></span><br><span class="line"><span class="meta">        version = &quot;1.0.0&quot;,</span></span><br><span class="line"><span class="meta">        contact = @Contact(</span></span><br><span class="line"><span class="meta">            name = &quot;lanweihong&quot;,</span></span><br><span class="line"><span class="meta">            email = &quot;986310747@qq.com&quot;,</span></span><br><span class="line"><span class="meta">            url = &quot;https://www.lanweihong.com&quot;</span></span><br><span class="line"><span class="meta">        ),</span></span><br><span class="line"><span class="meta">        license = @License(</span></span><br><span class="line"><span class="meta">            name = &quot;Apache 2.0&quot;,</span></span><br><span class="line"><span class="meta">            url = &quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;</span></span><br><span class="line"><span class="meta">        )</span></span><br><span class="line"><span class="meta">    ),</span></span><br><span class="line"><span class="meta">    servers = &#123;</span></span><br><span class="line"><span class="meta">        @Server(description = &quot;生产环境服务器&quot;, url = &quot;https://xxxx.com/api/v1&quot;),</span></span><br><span class="line"><span class="meta">        @Server(description = &quot;测试环境服务器&quot;, url = &quot;https://test.xxxx.com/api/v1&quot;)</span></span><br><span class="line"><span class="meta">    &#125;,</span></span><br><span class="line"><span class="meta">    security = @SecurityRequirement(name = &quot;Oauth2&quot;),</span></span><br><span class="line"><span class="meta">    externalDocs = @ExternalDocumentation(</span></span><br><span class="line"><span class="meta">        description = &quot;项目编译部署说明&quot;,</span></span><br><span class="line"><span class="meta">        url = &quot;http://localhost/deploy/README.md&quot;</span></span><br><span class="line"><span class="meta">    )</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwaggerConfig</span> &#123;</span><br><span class="line">    <span class="comment">// ···</span></span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h4 id="2-Info">2. <code>@Info</code></h4>
+<p>用于说明文档信息，用在 <code>@OpenAPIDefinition</code> 中。</p>
+<p>常用参数：</p>
+<ul>
+<li><code>title</code>：应用标题</li>
+<li><code>description</code>：应用描述</li>
+<li><code>contact</code>：联系信息，详情看 <code>@Contact</code></li>
+<li><code>license</code>：许可信息，详情看 <code>@License</code></li>
+<li><code>version</code>：版本</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@OpenAPIDefinition(</span></span><br><span class="line"><span class="meta">        info = @Info(</span></span><br><span class="line"><span class="meta">            title = &quot;用户接口 API 文档&quot;,</span></span><br><span class="line"><span class="meta">            description = &quot;用户数据管理......&quot;,</span></span><br><span class="line"><span class="meta">            version = &quot;1.0.0&quot;,</span></span><br><span class="line"><span class="meta">            contact = @Contact(name = &quot;lanweihong&quot;, email = &quot;986310747@qq.com&quot;, url = &quot;https://www.lanweihong.com&quot;),</span></span><br><span class="line"><span class="meta">            license = @License(name = &quot;Apache 2.0&quot;, url = &quot;http://www.apache.org/licenses/LICENSE-2.0.html&quot;)</span></span><br><span class="line"><span class="meta">        )</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwaggerConfig</span> &#123;</span><br><span class="line">    <span class="comment">// ···</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-Tag">3. <code>@Tag</code></h4>
+<p>对一个 operation 进行说明或定义的标签，用在类或方法上，也可以用在 <code>@OpenAPIDefinition</code> 中定义标签。</p>
+<p>常用参数：</p>
+<ul>
+<li><code>name</code>：名称</li>
+<li><code>description</code>：描述</li>
+</ul>
+<p>示例：</p>
+<p>用在类上：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Tag(name = &quot;用户管理&quot;)</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line">    <span class="comment">// ···</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用在 <code>@OpenAPIDefinition</code> 中定义标签：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@OpenAPIDefinition(</span></span><br><span class="line"><span class="meta">        tags = &#123;</span></span><br><span class="line"><span class="meta">            @Tag(name = &quot;用户管理&quot;, description = &quot;用户模块操作&quot;),</span></span><br><span class="line"><span class="meta">            @Tag(name = &quot;角色管理&quot;, description = &quot;角色模块操作&quot;)</span></span><br><span class="line"><span class="meta">        &#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwaggerConfig</span> &#123;</span><br><span class="line">    <span class="comment">// ···</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>值得注意的是，<code>@Tag</code> 在使用 Springfox 整合时，配置在 Controller 上使用并没有生效，在 Swagger UI 中没有看到相关显示。</strong>  这似乎是个 BUG，相关 issues： <a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fspringfox%2Fspringfox%2Fissues%2F3668">@Tag annotation not work as expected on the Controller class.</a> 。</p>
+<p><strong>目前还未修复，解决方法是使用 2.X 版本的注解替代：<code>@Api(tags = &quot;用户管理&quot;)</code> 。</strong></p>
+<p>这个问题在 Springdoc 中不存在，通过 Springdoc 来生成 API 文档时，<code>@Tag</code> 使用正常，在 Swagger UI 中正常显示</p>
+<h4 id="4-Contact">4. <code>@Contact</code></h4>
+<p>用于描述联系人信息，用在 <code>@Info</code> 中。</p>
+<p>常用参数：</p>
+<ul>
+<li><code>name</code>：唯一名称（个人/组织）</li>
+<li><code>url</code>：指向联系人信息的 URL</li>
+<li><code>email</code>：邮箱</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@OpenAPIDefinition(</span></span><br><span class="line"><span class="meta">    info = @Info(</span></span><br><span class="line"><span class="meta">        contact = @Contact(</span></span><br><span class="line"><span class="meta">                name = &quot;Li.chen&quot;, </span></span><br><span class="line"><span class="meta">                email = &quot;mail&quot;, </span></span><br><span class="line"><span class="meta">                url = &quot;www&quot;</span></span><br><span class="line"><span class="meta">        )</span></span><br><span class="line"><span class="meta">    )</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwaggerConfig</span> &#123;</span><br><span class="line">    <span class="comment">// ···</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-License">5. <code>@License</code></h4>
+<p>用于描述许可证信息，用在 <code>@Info</code> 中。</p>
+<p>常用参数：</p>
+<ul>
+<li><code>name</code>：许可证名称</li>
+<li><code>url</code>：指向许可证的 URL</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@OpenAPIDefinition(</span></span><br><span class="line"><span class="meta">    servers = &#123;</span></span><br><span class="line"><span class="meta">        @Server(description = &quot;生产环境服务器&quot;, url = &quot;https://xxxx.com/api/v1&quot;),</span></span><br><span class="line"><span class="meta">        @Server(description = &quot;测试环境服务器&quot;, url = &quot;https://test.xxxx.com/api/v1&quot;)</span></span><br><span class="line"><span class="meta">    &#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwaggerConfig</span> &#123;</span><br><span class="line">    <span class="comment">// ···</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="6-Server">6. <code>Server</code></h4>
+<p>用于配置目标主机，用在 <code>@OpenAPIDefinition</code> 中。</p>
+<p>常用参数：</p>
+<ul>
+<li><code>url</code>：主机地址</li>
+<li><code>description</code>：主机描述</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@OpenAPIDefinition(</span></span><br><span class="line"><span class="meta">    servers = &#123;</span></span><br><span class="line"><span class="meta">        @Server(description = &quot;生产环境服务器&quot;, url = &quot;https://xxxx.com/api/v1&quot;),</span></span><br><span class="line"><span class="meta">        @Server(description = &quot;测试环境服务器&quot;, url = &quot;https://test.xxxx.com/api/v1&quot;)</span></span><br><span class="line"><span class="meta">    &#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwaggerConfig</span> &#123;</span><br><span class="line">    <span class="comment">// ···</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="7-Operation">7. <code>@Operation</code></h4>
+<p>用于说明方法用途，用在方法上。</p>
+<p>参数：</p>
+<ul>
+<li><code>summary</code>：方法概要，方法的一个简单介绍，建议 120 个字符内</li>
+<li><code>description</code>：方法描述，一般是很长的内容</li>
+<li><code>hidden</code>：是否隐藏</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Operation(summary = &quot;查询用户列表&quot;, description = &quot;返回所有用户数据&quot;)</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/users&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">getUseList</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="8-Parameter">8. <code>@Parameter</code></h4>
+<p>用于说明方法参数，用在方法参数上。</p>
+<p>参数：</p>
+<ul>
+<li><code>name</code>：指定的参数名</li>
+<li><code>in</code>：参数位置，可选 <code>query</code>、<code>header</code>、<code>path</code> 或 <code>cookie</code>，默认为空，表示忽略</li>
+<li><code>description</code>：参数描述</li>
+<li><code>required</code>：是否必填，默认为 <code>false</code></li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Operation(summary = &quot;删除用户&quot;)</span></span><br><span class="line"><span class="meta">@DeleteMapping(&quot;/users/&#123;username&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> JsonResult&lt;UserVO&gt; <span class="title function_">deleteUserByName</span><span class="params">(</span></span><br><span class="line"><span class="params">        <span class="meta">@Parameter(name = &quot;username&quot;, in = ParameterIn.PATH, description = &quot;用户名&quot;, required = true)</span> </span></span><br><span class="line"><span class="params">        <span class="meta">@PathVariable(&quot;username&quot;)</span> String userName</span></span><br><span class="line"><span class="params">    )</span> &#123;</span><br><span class="line">    <span class="comment">// TODO</span></span><br><span class="line">    <span class="keyword">return</span> JsonResult.ok();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="9-ApiResponse">9. <code>@ApiResponse</code></h4>
+<p>用于说明一个响应信息，用在 <code>@ApiResponses</code> 中。</p>
+<p>参数：</p>
+<ul>
+<li><code>responseCode</code>：HTTP 响应码</li>
+<li><code>description</code>：描述</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Operation(summary = &quot;通过用户名查询用户&quot;, description = &quot;根据用户名查询用户详细信息&quot;)</span></span><br><span class="line"><span class="meta">@ApiResponses(value = &#123;</span></span><br><span class="line"><span class="meta">        @ApiResponse(responseCode = &quot;200&quot;, description = &quot;请求成功&quot;),</span></span><br><span class="line"><span class="meta">        @ApiResponse(responseCode = &quot;404&quot;, description = &quot;用户不存在&quot;, content = @Content)</span></span><br><span class="line"><span class="meta">&#125;)</span></span><br><span class="line"><span class="meta">@GetMapping(&quot;/&#123;username&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> JsonResult&lt;UserVO&gt; <span class="title function_">getUserByName</span><span class="params">(<span class="meta">@Parameter(description = &quot;用户名&quot;, required = true)</span> <span class="meta">@PathVariable(&quot;username&quot;)</span> String userName)</span> &#123;</span><br><span class="line">    <span class="comment">// TODO</span></span><br><span class="line">    <span class="keyword">return</span> JsonResult.ok();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="10-ApiResponses">10. <code>@ApiResponses</code></h4>
+<p>用于说明一组响应信息，比如一个请求可能返回多种响应情况，比如成功信息（200），也有可能抛参数异常（400），用在方法上。</p>
+<p>参数：</p>
+<ul>
+<li><code>value</code>：<code>@ApiResponse</code> 数组</li>
+</ul>
+<p>示例参考以上的 <code>@ApiResponse</code>。</p>
+<h4 id="11-Schema">11. <code>@Schema</code></h4>
+<p>用于描述数据对象信息或数据对象属性，比如各种 POJO 类及属性，用在类或类属性上。</p>
+<p>参数：</p>
+<ul>
+<li><code>name</code>：属性名称</li>
+<li><code>description</code>：属性描述</li>
+<li><code>required</code>：是否必须</li>
+<li><code>minLength</code>：字符最小长度</li>
+<li><code>maxLength</code>：字符最大长度</li>
+</ul>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Schema(description = &quot;用户实体&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserVO</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;用户名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String userName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;邮箱&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Getter And Setter ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>值得注意的是，当使用 Springfox 整合时， <code>@Schema</code> 配置在类上时在 Swagger UI 中并未生成其配置的信息，但是配置在类属性上却是正常的。配置在类上时可使用 <code>@ApiModel(description = &quot;用户参数对象&quot;)</code> 来替代。</strong></p>
+<p>这个问题在使用 Springdoc 整合时不存在，在 Springdox 整合使用时，<code>@Schema</code> 配置在类和属性上均正常。</p>
+<h4 id="12-Hidden">12. <code>@Hidden</code></h4>
+<p>用于隐藏资源、类或属性，用在类、方法或属性上。</p>
+<p>示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/api/roles&quot;)</span></span><br><span class="line"><span class="comment">// 隐藏整个 RoleController</span></span><br><span class="line"><span class="meta">@Hidden</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RoleController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> JsonResult&lt;String&gt; <span class="title function_">queryRoleList</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> JsonResult.ok();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般常用的也就这几个注解，若想要了解更多的注解，请参阅 <a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2FOAI%2FOpenAPI-Specification%2Fblob%2Fmain%2Fversions%2F3.0.3.md">OpenAPI Specification</a> 。</p>
+<p><strong>以下使用教程使用 Springfox 整合，可能对新注解支持不是特别好，有些注解添加了也不生效，因此以下配置中的代码并非全用到新注解。所以，我还是推荐使用 Springdoc 来整合生成文档。</strong></p>
+<h3 id="整合-Swagger-3（OpenAPI-3）">整合 Swagger 3（OpenAPI 3）</h3>
+<h4 id="添加依赖">添加依赖</h4>
+<p>编辑 <code>pom.xml</code>，添加依赖：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.springfox<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>springfox-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="添加-Swagger-配置类">添加 Swagger 配置类</h4>
+<ol>
+<li>添加 Swagger 属性配置类，用于封装 Swagger 配置参数：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties(prefix = &quot;spring.swagger&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwaggerProperties</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Boolean enable;</span><br><span class="line">    <span class="keyword">private</span> String groupName;</span><br><span class="line">    <span class="keyword">private</span> String basePackage;</span><br><span class="line">    <span class="keyword">private</span> String version;</span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line">    <span class="keyword">private</span> String description;</span><br><span class="line">    <span class="keyword">private</span> String contactName;</span><br><span class="line">    <span class="keyword">private</span> String contactEmail;</span><br><span class="line">    <span class="keyword">private</span> String contactUrl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>添加 Swagger 配置类，添加注解 <code>@EnableOpenApi</code>：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableOpenApi</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(value = &#123;SwaggerProperties.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwaggerConfig</span> &#123;</span><br><span class="line">    </span><br><span class="line">    SwaggerProperties swaggerProperties;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setSwaggerProperties</span><span class="params">(SwaggerProperties swaggerProperties)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.swaggerProperties = swaggerProperties;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * API</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Docket <span class="title function_">adminApi</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// OAS_30：区别于 V2，（OpenAPI Specification 的简称 OAS）</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Docket</span>(</span><br><span class="line">                <span class="comment">// 使用 OpenAPI 3.0</span></span><br><span class="line">                DocumentationType.OAS_30)</span><br><span class="line">                .enable(swaggerProperties.getEnable())</span><br><span class="line">                <span class="comment">// API 信息</span></span><br><span class="line">                .apiInfo(getAdminApiInfo())</span><br><span class="line">                <span class="comment">// API 分组</span></span><br><span class="line">                .groupName(swaggerProperties.getGroupName())</span><br><span class="line">                .select()</span><br><span class="line">                <span class="comment">// 对某个包的接口进行监听</span></span><br><span class="line">     .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))</span><br><span class="line">                <span class="comment">// 监听所有接口</span></span><br><span class="line">                <span class="comment">// .apis(RequestHandlerSelectors.any())</span></span><br><span class="line">                .paths(PathSelectors.any())</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * API 信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> ApiInfo <span class="title function_">getAdminApiInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ApiInfoBuilder</span>()</span><br><span class="line">                <span class="comment">// 文档标题</span></span><br><span class="line">                .title(swaggerProperties.getTitle())</span><br><span class="line">                <span class="comment">// 文档描述</span></span><br><span class="line">                .description(swaggerProperties.getDescription())</span><br><span class="line">                <span class="comment">// 联系人信息</span></span><br><span class="line">                .contact(<span class="keyword">new</span> <span class="title class_">Contact</span>(swaggerProperties.getContactName(), swaggerProperties.getContactUrl(), swaggerProperties.getContactEmail()))</span><br><span class="line">                <span class="comment">// 文档版本</span></span><br><span class="line">                .version(swaggerProperties.getVersion())</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="使用-Swagger-3">使用 Swagger 3</h4>
+<ol>
+<li>添加 Controller：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/api/users&quot;)</span></span><br><span class="line"><span class="comment">// @Tag 注解不生效，似乎是 BUG，相关 issues：https://github.com/springfox/springfox/issues/3668，因此这里使用 2.X 的注解 @Api</span></span><br><span class="line"><span class="comment">// @Tag(name = &quot;用户管理&quot;, description = &quot;用户数据增删改查&quot;)</span></span><br><span class="line"><span class="meta">@Api(tags = &quot;用户管理&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Operation(summary = &quot;查询用户列表&quot;, description = &quot;返回所有用户数据&quot;)</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> JsonResult&lt;List&lt;UserVO&gt;&gt; <span class="title function_">getUserList</span><span class="params">(<span class="meta">@Parameter(description = &quot;用户名&quot;)</span> <span class="meta">@RequestParam(value = &quot;username&quot;, required = false)</span> String userName)</span> &#123;</span><br><span class="line">        List&lt;UserVO&gt; result = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        result.add(<span class="keyword">new</span> <span class="title class_">UserVO</span>(<span class="string">&quot;zhangsan&quot;</span>, <span class="string">&quot;zhangsan@lanweihong.com&quot;</span>));</span><br><span class="line">        result.add(<span class="keyword">new</span> <span class="title class_">UserVO</span>(<span class="string">&quot;lisi&quot;</span>, <span class="string">&quot;lisi@lanweihong.com&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> JsonResult.ok(result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Operation(summary = &quot;通过用户名查询用户&quot;, description = &quot;根据用户名查询用户详细信息&quot;)</span></span><br><span class="line">    <span class="meta">@ApiResponses(value = &#123;</span></span><br><span class="line"><span class="meta">            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;请求成功&quot;),</span></span><br><span class="line"><span class="meta">            @ApiResponse(responseCode = &quot;404&quot;, description = &quot;用户不存在&quot;, content = @Content)</span></span><br><span class="line"><span class="meta">    &#125;)</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/&#123;username&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> JsonResult&lt;UserVO&gt; <span class="title function_">getUserByName</span><span class="params">(<span class="meta">@Parameter(description = &quot;用户名&quot;, required = true)</span> <span class="meta">@PathVariable(&quot;username&quot;)</span> String userName)</span> &#123;</span><br><span class="line">        <span class="comment">// TODO</span></span><br><span class="line">        <span class="keyword">return</span> JsonResult.ok();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Operation(summary = &quot;新增用户&quot;)</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> JsonResult&lt;UserVO&gt; <span class="title function_">addUser</span><span class="params">(<span class="meta">@Parameter(required = true)</span> <span class="meta">@Valid</span> <span class="meta">@RequestBody</span> UserParam param)</span> &#123;</span><br><span class="line">        <span class="comment">// TODO</span></span><br><span class="line">        <span class="keyword">return</span> JsonResult.ok();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Operation(summary = &quot;修改用户&quot;)</span></span><br><span class="line">    <span class="meta">@PutMapping(&quot;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> JsonResult&lt;UserVO&gt; <span class="title function_">updateUser</span><span class="params">(<span class="meta">@Parameter(description = &quot;用户参数&quot;, required = true)</span> <span class="meta">@Valid</span> <span class="meta">@RequestBody</span> UserParam param)</span> &#123;</span><br><span class="line">        <span class="comment">// TODO</span></span><br><span class="line">        <span class="keyword">return</span> JsonResult.ok();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Operation(summary = &quot;删除用户&quot;)</span></span><br><span class="line">    <span class="meta">@DeleteMapping(&quot;/&#123;username&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> JsonResult&lt;UserVO&gt; <span class="title function_">deleteUserByName</span><span class="params">(<span class="meta">@Parameter(name = &quot;username&quot;, in = ParameterIn.PATH, description = &quot;用户名&quot;, required = true)</span> <span class="meta">@PathVariable(&quot;username&quot;)</span> String userName)</span> &#123;</span><br><span class="line">        <span class="comment">// TODO</span></span><br><span class="line">        <span class="keyword">return</span> JsonResult.ok();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Hidden</span></span><br><span class="line">    <span class="meta">@PostMapping(&quot;/test&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> JsonResult&lt;UserVO&gt; <span class="title function_">testAddUser</span><span class="params">(<span class="meta">@Valid</span> <span class="meta">@RequestBody</span> UserParam userParam)</span> &#123;</span><br><span class="line">        <span class="comment">// TODO</span></span><br><span class="line">        <span class="keyword">return</span> JsonResult.ok();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>添加 VO：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Getter</span></span><br><span class="line"><span class="meta">@Setter</span></span><br><span class="line"><span class="comment">// @Schema 注解用在类上不生效，使用 @ApiModel 替代</span></span><br><span class="line"><span class="meta">@ApiModel(description = &quot;用户实体&quot;)</span></span><br><span class="line"><span class="meta">@ToString</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserVO</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UserVO</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">UserVO</span><span class="params">(String userName, String email)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.userName = userName;</span><br><span class="line">        <span class="built_in">this</span>.email = email;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(name = &quot;用户名&quot;, description = &quot;用户名&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String userName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Schema(description = &quot;邮箱&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>编辑项目 <code>application.yml</code>，添加以下参数：</li>
+</ol>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">yml复制代码#</span> <span class="string">自定义</span> <span class="string">Swagger</span> <span class="string">配置</span></span><br><span class="line">    <span class="attr">spring:</span></span><br><span class="line">    <span class="attr">swagger:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">groupName:</span> <span class="string">前端</span></span><br><span class="line">    <span class="attr">basePackage:</span> <span class="string">com.lanweihong.springfox.swagger</span></span><br><span class="line">    <span class="attr">version:</span> <span class="number">1.0</span><span class="number">.0</span></span><br><span class="line">    <span class="attr">title:</span> <span class="string">前端</span></span><br><span class="line">    <span class="attr">description:</span> <span class="string">开发文档</span></span><br><span class="line">    <span class="attr">contactName:</span> <span class="string">lanweihong</span></span><br><span class="line">    <span class="attr">contactEmail:</span> <span class="number">986310747</span><span class="string">@qq.com</span></span><br><span class="line">    <span class="attr">contactUrl:</span> <span class="string">blog.lanweihong.com</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>项目中如果使用了 Spring Security 的，要添加以下配置放行 Swagger UI 的相关资源：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java复制代码<span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title class_">WebSecurityConfigurerAdapter</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(WebSecurity web)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        web.ignoring().antMatchers(<span class="string">&quot;/v3/api-docs&quot;</span>,</span><br><span class="line">                <span class="string">&quot;/v3/api-docs/**&quot;</span>,</span><br><span class="line">                <span class="string">&quot;/swagger-resources/**&quot;</span>,</span><br><span class="line">                <span class="string">&quot;/swagger-ui/**&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>启动项目进行测试。</li>
+</ol>
+<p>启动项目，浏览器访问：<a href="https://link.juejin.cn?target=http%3A%2F%2Flocalhost%3A8080%2Fswagger-ui%2F">http://localhost:8080/swagger-ui/</a> （<strong>注意：Swagger 2.X 版本访问地址是 <a href="https://link.juejin.cn?target=http%3A%2F%2Flocalhost%3A8080%2Fswagger-ui.html">http://localhost:8080/swagger-ui.html</a>，这和 3.0 不一样。</strong> ），可看到 Swagger UI 界面.</p>
+<p>至此，Spring Boot 中使用 SpringFox 整合 Swagger 3 的使用已完成。</p>
+<blockquote>
+<p>作者：Ankou<br>
+链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6992149946988232734">https://juejin.cn/post/6992149946988232734</a><br>
+来源：稀土掘金<br>
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>另附参考文档：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wangzhihao1994/article/details/108408420">Spring Boot 整合 springfox-swagger 3.0.0_springfox-boot-starter 3.0.0 匹配 springboot 哪个版本-CSDN博客</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://FutureYL3.github.io">yl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://futureyl3.github.io/2025/03/02/Springfox-Swagger/">https://futureyl3.github.io/2025/03/02/Springfox-Swagger/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Swagger/">Swagger</a></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/03/02/Database-and-SQL-Basic-Concepts-and-Usage/" title="Database and SQL: Basic Concepts and Usage"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Database and SQL: Basic Concepts and Usage</div></div><div class="info-2"><div class="info-item-1">Introduction to Database and SQL -- using MySQL as example.</div></div></div></a><a class="pagination-related" href="/2025/03/02/Web-Development-Sky-Takeout/" title="Web Development -- Sky Takeout"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">Web Development -- Sky Takeout</div></div><div class="info-2"><div class="info-item-1">Project oriendted way to learn advanced web development.</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/kano.JPG" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">yl</div><div class="author-info-description">Student at Harbin Institute of Technology (HIT) / Major in Software Engineering</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">33</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">10</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/FutureYL3" target="_blank" title="My GitHub Profile"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://space.bilibili.com/310715755" target="_blank" title="My Bilibili Space"><i class="fa-brands fa-bilibili" style="color: #00a1d6;"></i></a><a class="social-icon" href="/future_yl@outlook.com" target="_blank" title="My Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">Springfox-Swagger</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenAPI-%E4%B8%8E-Swagger"><span class="toc-text">OpenAPI 与 Swagger</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenAPI-%E7%AE%80%E4%BB%8B"><span class="toc-text">OpenAPI 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swagger-%E7%AE%80%E4%BB%8B"><span class="toc-text">Swagger 简介</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SpringFox-%E4%B8%8E-SpringDoc"><span class="toc-text">SpringFox 与 SpringDoc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringFox-%E7%AE%80%E4%BB%8B"><span class="toc-text">SpringFox 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SpringDoc-%E7%AE%80%E4%BB%8B"><span class="toc-text">SpringDoc 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8E-SpringFox-%E8%BF%81%E7%A7%BB%E5%88%B0-SpringDoc"><span class="toc-text">从 SpringFox 迁移到 SpringDoc</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Boot-%E4%B8%AD%E4%BD%BF%E7%94%A8-Springfox-%E6%95%B4%E5%90%88-Swagger-3%EF%BC%88OpenAPI-3%EF%BC%89"><span class="toc-text">Spring Boot 中使用 Springfox 整合 Swagger 3（OpenAPI 3）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Swagger-3%EF%BC%88OpenAPI-3%EF%BC%89%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3%E4%BB%8B%E7%BB%8D"><span class="toc-text">Swagger 3（OpenAPI 3）常用注解介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-OpenAPIDefinition"><span class="toc-text">1. @OpenAPIDefinition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Info"><span class="toc-text">2. @Info</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Tag"><span class="toc-text">3. @Tag</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Contact"><span class="toc-text">4. @Contact</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-License"><span class="toc-text">5. @License</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-Server"><span class="toc-text">6. Server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-Operation"><span class="toc-text">7. @Operation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-Parameter"><span class="toc-text">8. @Parameter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-ApiResponse"><span class="toc-text">9. @ApiResponse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-ApiResponses"><span class="toc-text">10. @ApiResponses</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-Schema"><span class="toc-text">11. @Schema</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-Hidden"><span class="toc-text">12. @Hidden</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%90%88-Swagger-3%EF%BC%88OpenAPI-3%EF%BC%89"><span class="toc-text">整合 Swagger 3（OpenAPI 3）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="toc-text">添加依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-Swagger-%E9%85%8D%E7%BD%AE%E7%B1%BB"><span class="toc-text">添加 Swagger 配置类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Swagger-3"><span class="toc-text">使用 Swagger 3</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/Web-Development-Sky-Takeout/" title="Web Development -- Sky Takeout">Web Development -- Sky Takeout</a><time datetime="2025-03-02T10:51:57.000Z" title="Created 2025-03-02 18:51:57">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/Springfox-Swagger/" title="Springfox Swagger">Springfox Swagger</a><time datetime="2025-03-02T10:42:33.000Z" title="Created 2025-03-02 18:42:33">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/Database-and-SQL-Basic-Concepts-and-Usage/" title="Database and SQL: Basic Concepts and Usage">Database and SQL: Basic Concepts and Usage</a><time datetime="2025-03-02T10:29:51.000Z" title="Created 2025-03-02 18:29:51">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/MyBatis-Plus-Basic-Usage/" title="MyBatis Plus Basic Usage">MyBatis Plus Basic Usage</a><time datetime="2025-03-02T10:19:09.000Z" title="Created 2025-03-02 18:19:09">2025-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/02/MIT-The-Missing-Semester-Lec10-Potpourri/" title="[MIT The Missing Semester] Lec10: Potpourri">[MIT The Missing Semester] Lec10: Potpourri</a><time datetime="2025-03-02T10:10:46.000Z" title="Created 2025-03-02 18:10:46">2025-03-02</time></div></div></div></div></div></div></main><footer id="footer" style="background: linear-gradient(to right, rgb(198, 255, 221), rgb(251, 215, 134), rgb(247, 121, 125));"><div id="footer-wrap"><div class="copyright">&copy;2025 By yl</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.3</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css')
+    if (true) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (true) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const applyThemeDefaultsConfig = theme => {
+    if (theme === 'dark-mode') {
+      Chart.defaults.color = "rgba(255, 255, 255, 0.8)"
+      Chart.defaults.borderColor = "rgba(255, 255, 255, 0.2)"
+      Chart.defaults.scale.ticks.backdropColor = "transparent"
+    } else {
+      Chart.defaults.color = "rgba(0, 0, 0, 0.8)"
+      Chart.defaults.borderColor = "rgba(0, 0, 0, 0.1)"
+      Chart.defaults.scale.ticks.backdropColor = "transparent"
+    }
+  }
+
+  // Recursively traverse the config object and automatically apply theme-specific color schemes
+  const applyThemeConfig = (obj, theme) => {
+    if (typeof obj !== 'object' || obj === null) return
+
+    Object.keys(obj).forEach(key => {
+      const value = obj[key]
+      // If the property is an object and has theme-specific options, apply them
+      if (typeof value === 'object' && value !== null) {
+        if (value[theme]) {
+          obj[key] = value[theme] // Apply the value for the current theme
+        } else {
+          // Recursively process child objects
+          applyThemeConfig(value, theme)
+        }
+      }
+    })
+  }
+
+  const runChartJS = ele => {
+    window.loadChartJS = true
+
+    Array.from(ele).forEach((item, index) => {
+      const chartSrc = item.firstElementChild
+      const chartID = item.getAttribute('data-chartjs-id') || ('chartjs-' + index) // Use custom ID or default ID
+      const width = item.getAttribute('data-width')
+      const existingCanvas = document.getElementById(chartID)
+
+      // If a canvas already exists, remove it to avoid rendering duplicates
+      if (existingCanvas) {
+          existingCanvas.parentNode.remove()
+      }
+
+      const chartDefinition = chartSrc.textContent
+      const canvas = document.createElement('canvas')
+      canvas.id = chartID
+
+      const div = document.createElement('div')
+      div.className = 'chartjs-wrap'
+
+      if (width) {
+        div.style.width = width
+      }
+
+      div.appendChild(canvas)
+      chartSrc.insertAdjacentElement('afterend', div)
+
+      const ctx = document.getElementById(chartID).getContext('2d')
+
+      const config = JSON.parse(chartDefinition)
+
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark-mode' : 'light-mode'
+
+      // Set default styles (initial setup)
+      applyThemeDefaultsConfig(theme)
+
+      // Automatically traverse the config and apply dual-mode color schemes
+      applyThemeConfig(config, theme)
+
+      new Chart(ctx, config)
+    })
+  }
+
+  const loadChartJS = () => {
+    const chartJSEle = document.querySelectorAll('#article-container .chartjs-container')
+    if (chartJSEle.length === 0) return
+
+    window.loadChartJS ? runChartJS(chartJSEle) : btf.getScript('https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js').then(() => runChartJS(chartJSEle))
+  }
+
+  // Listen for theme change events
+  btf.addGlobalFn('themeChange', loadChartJS, 'chartjs')
+  btf.addGlobalFn('encrypt', loadChartJS, 'chartjs')
+
+  window.pjax ? loadChartJS() : document.addEventListener('DOMContentLoaded', loadChartJS)
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="search through all posts and pages" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
